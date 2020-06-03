@@ -1,0 +1,148 @@
+<div class="row">
+    <div class="col-md-8">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Region</th>
+                    <th scope="col">Dmax</th>
+                    <th scope="col">Cc</th>
+                    <th scope="col">Cu</th>
+                    <th scope="col">Dab</th>
+                    <th scope="col">Dap</th>
+                    <th scope="col">G</th>
+                    <th scope="col">Action</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let gravier of graviers; let i=index">
+                    <td>{{i+1}}</td>
+                    <td>{{gravier.data.nom}}</td>
+                    <td>{{gravier.data.region}}</td>
+                    <td>{{gravier.data.Dmax}}</td>
+                    <td>{{gravier.data.Cc}}</td>
+                    <td>{{gravier.data.Cu}}</td>
+                    <td>{{gravier.data.Dab}}</td>
+                    <td>{{gravier.data.Dap}}</td>
+                    <td>{{gravier.data.G}}</td>
+                    <td>
+                        <button type="button" (click)="onShow(i)" class="btn btn-primary">Voir</button>
+                        <button type="button" (click)="onEdit(gravier.id)" class="btn btn-warning">Modifier</button>
+                        <button type="button" (click)="onDelet(gravier.id)" class="btn btn-danger">Supprimer</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-4">
+        <div class="card p-5">
+            <form [formGroup]="gravierForm">
+                <div class="form-group  row">
+                    <label class="col-sm-6 col-form-label" for="Nom">
+                        Nom du gravier
+                    </label>
+                    <div class="col-sm-6">
+                        <input type="text" formControlName="nom" class="form-control form-control-sm" id="nom">
+                    </div>
+                </div>
+
+                <div class="form-group  row">
+                    <label class="col-sm-6 col-form-label" for="region">
+                        Region
+                    </label>
+                    <div class="col-sm-6">
+                        <input type="text" formControlName="region" class="form-control form-control-sm" id="region">
+                    </div>
+                </div>
+
+                <div class="form-group  row">
+                    <label class="col-sm-6 col-form-label" for="Dmax">
+                        Dmax
+                    </label>
+                    <div class="col-sm-6">
+                        <input type="number" formControlName="Dmax" class="form-control form-control-sm" id="Dmax">
+                    </div>
+                </div>
+
+                <div class="form-group  row">
+                    <label class="col-sm-6 col-form-label" for="Cc">
+                        Cc
+                    </label>
+                    <div class="col-sm-6">
+                        <input type="number" formControlName="Cc" class="form-control form-control-sm" id="Cc">
+                    </div>
+                </div>
+
+                <div class="form-group  row">
+                    <label class="col-sm-6 col-form-label" for="Cu">
+                        Cu
+                    </label>
+                    <div class="col-sm-6">
+                        <input type="number" formControlName="Cu" class="form-control form-control-sm" id="Cu">
+                    </div>
+                </div>
+
+                <div class="form-group  row">
+                    <label class="col-sm-6 col-form-label" for="Dab">
+                        Dab
+                    </label>
+                    <div class="col-sm-6">
+                        <input type="number" formControlName="Dab" class="form-control form-control-sm" id="Dab">
+                    </div>
+                </div>
+
+                <div class="form-group  row">
+                    <label class="col-sm-6 col-form-label" for="Dap">
+                        Dap
+                    </label>
+                    <div class="col-sm-6">
+                        <input type="number" formControlName="Dap" class="form-control form-control-sm" id="Dap">
+                    </div>
+                </div>
+
+                <div class="form-group  row">
+                    <label class="col-sm-6 col-form-label" for="G">
+                        coefficient Granulaire G
+                    </label>
+                    <div class="col-sm-6">
+                        <input type="number" formControlName="G" class="form-control form-control-sm" id="G">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <span>Module</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span>Passant</span>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-primary btn-sm" (click)="addRow()">Ajouter</button>
+                    </div>
+                </div>
+
+                <div class="row" *ngFor="let Ggroup of gravierForm.get('Granulometrie')['controls'] ;let i = index"
+                    [formGroup]="Ggroup">
+
+
+                    <div class="col-md-4">
+                        <input formControlName="module">
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <input formControlName="passant">
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-danger btn-sm" (click)="deleteRow(i)">Supprimer</button>
+                    </div>
+
+                </div>
+                <button (click)="validateForm()" class="btn btn-primary">
+                    valider
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

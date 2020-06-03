@@ -1,0 +1,66 @@
+<div class="row">
+    <div class="col-md-8">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">σ28j</th>
+                    <th scope="col">Mvr</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ciment of ciments; let i=index">
+                    <td>{{i+1}}</td>
+                    <td>{{ciment.data.nom}}</td>
+                    <td>{{ciment.data.resistance}}</td>
+                    <td>{{ciment.data.Mvr}}</td>
+
+                    <td>
+                        <button type="button" (click)="onShow(i)" class="btn btn-primary">Voir</button>
+                        <button type="button" (click)="onEdit(ciment.id)" class="btn btn-warning">Modifier</button>
+                        <button type="button" (click)="onDelet(ciment.id)" class="btn btn-danger">Supprimer</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-4">
+        <div class="card p-5">
+            <form [formGroup]="cimentForm">
+                <div class="form-group  row">
+                    <label class="col-sm-6 col-form-label" for="Nom">
+                        Nom du ciment
+                    </label>
+                    <div class="col-sm-6">
+                        <input type="text" formControlName="nom" class="form-control form-control-sm" id="nom">
+                    </div>
+                </div>
+
+                <div class="form-group  row">
+                    <label class="col-sm-6 col-form-label" for="resistance">
+                        resistance σ28j
+                    </label>
+                    <div class="col-sm-6">
+                        <input type="number" formControlName="resistance" class="form-control form-control-sm"
+                            id="resistance">
+                    </div>
+                </div>
+
+                <div class="form-group  row">
+                    <label class="col-sm-6 col-form-label" for="Mvr">
+                        Masse volumique réele Mvr
+                    </label>
+                    <div class="col-sm-6">
+                        <input type="number" formControlName="Mvr" class="form-control form-control-sm" id="Mvr">
+                    </div>
+                </div>
+
+                <button (click)="validateForm()" class="btn btn-primary">
+                    valider
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
