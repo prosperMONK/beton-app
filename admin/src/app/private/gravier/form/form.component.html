@@ -1,0 +1,117 @@
+<div class="container">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Formulaire de Gravier</h4>
+        <button type="button" class="close" aria-label="Close" (click)="onClose()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="form">
+            <div class="form-group  row">
+                <label class="col-sm-6 col-form-label" for="Nom">
+                    Nom du gravier
+                </label>
+                <div class="col-sm-6">
+                    <input type="text" formControlName="nom" class="form-control form-control-sm" id="nom">
+                </div>
+            </div>
+        
+            <div class="form-group  row">
+                <label class="col-sm-6 col-form-label" for="region">
+                    Region
+                </label>
+                <div class="col-sm-6">
+                    <input type="text" formControlName="region" class="form-control form-control-sm" id="region">
+                </div>
+            </div>
+        
+            <div class="form-group  row">
+                <label class="col-sm-6 col-form-label" for="Dmax">
+                    Dmax
+                </label>
+                <div class="col-sm-6">
+                    <input type="number" formControlName="Dmax" class="form-control form-control-sm" id="Dmax">
+                </div>
+            </div>
+        
+            <div class="form-group  row">
+                <label class="col-sm-6 col-form-label" for="Cc">
+                    Cc
+                </label>
+                <div class="col-sm-6">
+                    <input type="number" formControlName="Cc" class="form-control form-control-sm" id="Cc">
+                </div>
+            </div>
+        
+            <div class="form-group  row">
+                <label class="col-sm-6 col-form-label" for="Cu">
+                    Cu
+                </label>
+                <div class="col-sm-6">
+                    <input type="number" formControlName="Cu" class="form-control form-control-sm" id="Cu">
+                </div>
+            </div>
+        
+            <div class="form-group  row">
+                <label class="col-sm-6 col-form-label" for="Dab">
+                    Dab
+                </label>
+                <div class="col-sm-6">
+                    <input type="number" formControlName="Dab" class="form-control form-control-sm" id="Dab">
+                </div>
+            </div>
+        
+            <div class="form-group  row">
+                <label class="col-sm-6 col-form-label" for="Dap">
+                    Dap
+                </label>
+                <div class="col-sm-6">
+                    <input type="number" formControlName="Dap" class="form-control form-control-sm" id="Dap">
+                </div>
+            </div>
+        
+            <div class="form-group  row">
+                <label class="col-sm-6 col-form-label" for="G">
+                    coefficient Granulaire G
+                </label>
+                <div class="col-sm-6">
+                    <input type="number" formControlName="G" class="form-control form-control-sm" id="G">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <span>Module</span>
+                </div>
+                <div class="col-md-4">
+                    <span>Passant</span>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-primary btn-sm" (click)="addRow()">Ajouter</button>
+                </div>
+            </div>
+        
+            <div  *ngFor="let Ggroup of form.get('Granulometrie')['controls'] ;let i = index"
+                [formGroup]="Ggroup">
+        
+                <div class="row">
+                    <div class="col-md-4">
+                        <input class="form-control" formControlName="module">
+                    </div>
+            
+                    <div class="col-md-4">
+                        <input class="form-control" formControlName="passant">
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-danger btn-sm" (click)="deleteRow(i)">Supprimer</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button [disabled]="!form.valid" (click)="validateForm()" class="btn btn-primary">
+            valider
+        </button>
+      </div>
+   
+</div>

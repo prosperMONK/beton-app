@@ -15,6 +15,11 @@ import { GravierComponent } from './private/gravier/gravier.component';
 import { SableComponent } from './private/sable/sable.component';
 import { CimentComponent } from './private/ciment/ciment.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormComponent } from './private/gravier/form/form.component';
+import { DetailComponent } from './private/gravier/detail/detail.component';
+import { ChartsModule } from 'ng2-charts';
+
 
 
 @NgModule({
@@ -27,6 +32,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     GravierComponent,
     SableComponent,
     CimentComponent,
+    FormComponent,
+    DetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +43,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
    AngularFireAuthModule,
    FormsModule,
    ReactiveFormsModule,
+   NgbModule,
+   ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

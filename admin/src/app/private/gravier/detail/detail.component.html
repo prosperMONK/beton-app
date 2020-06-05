@@ -1,0 +1,61 @@
+<div class="container" *ngIf="item">
+    <div class="modal-header">
+        <h4 class="modal-title text-primary" id="modal-basic-title">Information du gravier {{item.nom}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="onClose()">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                          Region
+                          <span class="text-primary">{{item.region}}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Nom
+                          <span class="text-primary">{{item.nom}}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                          Dmax
+                          <span class="text-primary">{{item.Dmax}}</span>
+                        </li>
+                      </ul>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card mb-3">
+                    <div class="w-100 d-flex justify-content-center">
+                        <h1>
+                            Tableau de granulométrie
+                        </h1>
+                       
+                    </div>
+                    <table class="table">
+    
+                        <tr>
+                            <th>Modules</th>
+                            <td *ngFor="let val of lineChartData">
+                                {{val.x }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Passants</th>
+                            <td *ngFor="let val of lineChartData">
+                                {{val.y }}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+               
+                <div class="card" style="display: block">
+                    <canvas baseChart [data]="lineChartData" [options]="lineChartOptions" [chartType]="lineChartType"
+                        [legend]="lineChartLegend" [colors]="lineChartColors">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

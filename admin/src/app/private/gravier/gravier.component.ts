@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormArray, FormBuilder } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { GravierService } from 'src/app/services/gravier.service';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { FormComponent } from './form/form.component';
+import { DetailComponent } from './detail/detail.component';
 
 @Component({
   selector: 'app-gravier',
@@ -8,63 +10,52 @@ import { GravierService } from 'src/app/services/gravier.service';
   styleUrls: ['./gravier.component.scss']
 })
 export class GravierComponent implements OnInit {
-  gravierForm: FormGroup;
   graviers: any[];
-  isUpdating= false;
-  id: string;
+  closeResult: string;
+// @ViewChild("mymodal") myModal :HTMLElement;
+
   constructor(
-    private fb: FormBuilder,
+    private modalService: NgbModal,
     public gravierservice: GravierService
   ) { }
 
   ngOnInit(): void {
-    this.InitForm();
     this.gravierservice.getAll().subscribe(
       res=> this.graviers=res
     )
   }
-  InitForm(){
-    this.gravierForm=this.fb.group({
-      nom: ["", Validators.required],
-      region: ["", Validators.required],
-      Dmax: ["",Validators.required],
-      Cc: ["",Validators.required],
-      Cu: ["",Validators.required],
-      Dab: ["",Validators.required],
-      Dap: ["",Validators.required],
-      G: ["",Validators.required],
-      Granulometrie: this.fb.array([])
-    })
-  }
-  addRow() {
-    const add = this.gravierForm.get('Granulometrie') as FormArray;
-    add.push(this.fb.group({
-      module: [],
-      passant: []
-    }))
+
+ 
+
+
+  onShow(id){
+    const data = this.modalService.open(DetailComponent, {ariaLabelledBy: 'modal-basic-title', size: 'xl'});
+    data.componentInstance.id = id;
   }
 
-  deleteRow(index: number) {
-    const add = this.gravierForm.get('Granulometrie') as FormArray;
-    add.removeAt(index)
-  }  
-  validateForm(){
-    console.log(this.gravierForm.value)
-   if(!this.isUpdating) this.gravierservice.Add(this.gravierForm.value);
-   else this.gravierservice.Edit(this.id,this.gravierForm.value)
-    this.InitForm();
-    this.isUpdating=false;
-    
+
+  onAdd() {
+    this.modalService.open(FormComponent, {ariaLabelledBy: 'modal-basic-title', size: 'sm'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
   }
-  onShow(i){}
   onEdit(id){
-    this.id=id;
-    this.isUpdating=true;
-    this.gravierservice.getById(id).subscribe(
-      res=> this.gravierForm.patchValue(res)
-    )
+    const data = this.modalService.open(FormComponent, {ariaLabelledBy: 'modal-basic-title', size: 'sm'});
+    data.componentInstance.id = id;
   }
   onDelet(id){
     this.gravierservice.Delet(id)
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
   }
 }
