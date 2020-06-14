@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Formulaire de Sable</h4>
+        <button type="button" class="close" aria-label="Close" (click)="onClose()">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="form">
+            <div class="form-group  row">
+                <label class="col-sm-6 col-form-label" for="Nom">
+                    Nom du ciment
+                </label>
+                <div class="col-sm-6">
+                    <input type="text" formControlName="nom" class="form-control form-control-sm" id="nom">
+                </div>
+            </div>
+
+            <div class="form-group  row">
+                <label class="col-sm-6 col-form-label" for="resistance">
+                    resistance σ28j
+                </label>
+                <div class="col-sm-6">
+                    <input type="text" formControlName="resistance" class="form-control form-control-sm"
+                        id="resistance">
+                </div>
+            </div>
+
+            <div class="form-group  row">
+                <label class="col-sm-6 col-form-label" for="Mvr">
+                    Masse volumique réele Mvr
+                </label>
+                <div class="col-sm-6">
+                    <input type="number" formControlName="Mvr" class="form-control form-control-sm" id="Mvr">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button [disabled]="!form.valid" (click)="validateForm()" class="btn btn-primary">
+            valider
+        </button>
+    </div>
+
+</div>

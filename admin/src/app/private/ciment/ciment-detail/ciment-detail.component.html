@@ -1,0 +1,28 @@
+<div class="container" *ngIf="item">
+    <div class="modal-header ">
+        <h4 class="modal-title text-primary " id="modal-basic-title">Information sur le ciment {{item.nom}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="onClose()">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12 ">
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Nom du ciment
+                        <span class="text-primary">{{item.nom}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Resistance σ28j
+                        <span class="text-primary">{{item.resistance}} MPa</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Masse volumique réele Mvr
+                        <span class="text-primary">{{item.Mvr}} g/cm3</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -12,13 +12,17 @@ import {  AngularFireAuthModule} from '@angular/fire/auth';
 import { LoginComponent } from './public/login/login.component';
 import { AccueilComponent } from './private/accueil/accueil.component';
 import { GravierComponent } from './private/gravier/gravier.component';
-import { SableComponent } from './private/sable/sable.component';
 import { CimentComponent } from './private/ciment/ciment.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormComponent } from './private/gravier/form/form.component';
 import { DetailComponent } from './private/gravier/detail/detail.component';
 import { ChartsModule } from 'ng2-charts';
+import { SableComponent } from './private/sable/sable.component';
+import { SableFormComponent } from './private/sable/sable-form/sable-form.component';
+import { SableDetailComponent } from './private/sable/sable-detail/sable-detail.component';
+import { CimentFormComponent } from './private/ciment/ciment-form/ciment-form.component';
+import { CimentDetailComponent } from './private/ciment/ciment-detail/ciment-detail.component';
 
 
 
@@ -30,10 +34,14 @@ import { ChartsModule } from 'ng2-charts';
     LoginComponent,
     AccueilComponent,
     GravierComponent,
-    SableComponent,
     CimentComponent,
     FormComponent,
     DetailComponent,
+    SableComponent,
+    SableFormComponent,
+    SableDetailComponent,
+    CimentFormComponent,
+    CimentDetailComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,137 +1,41 @@
-<div class="row">
-  <div class="col-md-8">
-      <table class="table">
-          <thead>
-              <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Nom</th>
-                  <th scope="col">Region</th>
-                  <th scope="col">Cc</th>
-                  <th scope="col">Cu</th>
-                  <th scope="col">Dab</th>
-                  <th scope="col">Dap</th>
-                  <th scope="col">ES</th>
-                  <th scope="col">Action</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr *ngFor="let sable of sables; let i=index">
-                  <td>{{i+1}}</td>
-                  <td>{{sable.data.nom}}</td>
-                  <td>{{sable.data.region}}</td>
-                  <td>{{sable.data.Cc}}</td>
-                  <td>{{sable.data.Cu}}</td>
-                  <td>{{sable.data.Dab}}</td>
-                  <td>{{sable.data.Dap}}</td>
-                  <td>{{sable.data.ES}}</td>
-                  <td>
-                      <button type="button" (click)="onShow(i)" class="btn btn-primary">Voir</button>
-                      <button type="button" (click)="onEdit(sable.id)" class="btn btn-warning">Modifier</button>
-                      <button type="button" (click)="onDelet(sable.id)" class="btn btn-danger">Supprimer</button>
-                  </td>
-              </tr>
-          </tbody>
-      </table>
-  </div>
-  <div class="col-md-4">
-      <div class="card p-5">
-          <form [formGroup]="sableForm">
-              <div class="form-group  row">
-                  <label class="col-sm-6 col-form-label" for="Nom">
-                      Nom du sable
-                  </label>
-                  <div class="col-sm-6">
-                      <input type="text" formControlName="nom" class="form-control form-control-sm" id="nom">
-                  </div>
-              </div>
+<div class="row d-flex justify-content-center">
+    <div class="col-md-8">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Region</th>
+                    <th scope="col">Cc</th>
+                    <th scope="col">Cu</th>
+                    <th scope="col">Dab</th>
+                    <th scope="col">Dap</th>
+                    <th scope="col">ES</th>
+                    <th scope="col">Mf</th>
+                    <th scope="col">Action
+                        <button (click)="onAdd()" class="btn btn-sm btn-secondary">Ajouter</button>
+                    </th>
 
-              <div class="form-group  row">
-                  <label class="col-sm-6 col-form-label" for="region">
-                      Region
-                  </label>
-                  <div class="col-sm-6">
-                      <input type="text" formControlName="region" class="form-control form-control-sm" id="region">
-                  </div>
-              </div>
-
-              <div class="form-group  row">
-                  <label class="col-sm-6 col-form-label" for="Cc">
-                      Cc
-                  </label>
-                  <div class="col-sm-6">
-                      <input type="number" formControlName="Cc" class="form-control form-control-sm" id="Cc">
-                  </div>
-              </div>
-
-              <div class="form-group  row">
-                  <label class="col-sm-6 col-form-label" for="Cu">
-                      Cu
-                  </label>
-                  <div class="col-sm-6">
-                      <input type="number" formControlName="Cu" class="form-control form-control-sm" id="Cu">
-                  </div>
-              </div>
-
-              <div class="form-group  row">
-                  <label class="col-sm-6 col-form-label" for="Dab">
-                      Dab
-                  </label>
-                  <div class="col-sm-6">
-                      <input type="number" formControlName="Dab" class="form-control form-control-sm" id="Dab">
-                  </div>
-              </div>
-
-              <div class="form-group  row">
-                  <label class="col-sm-6 col-form-label" for="Dap">
-                      Dap
-                  </label>
-                  <div class="col-sm-6">
-                      <input type="number" formControlName="Dap" class="form-control form-control-sm" id="Dap">
-                  </div>
-              </div>
-
-              <div class="form-group  row">
-                  <label class="col-sm-6 col-form-label" for="ES">
-                      ES
-                  </label>
-                  <div class="col-sm-6">
-                      <input type="number" formControlName="ES" class="form-control form-control-sm" id="ES">
-                  </div>
-              </div>
-              <div class="row">
-                  <div class="col-md-4">
-                      <span>Module</span>
-                  </div>
-                  <div class="col-md-4">
-                      <span>Passant</span>
-                  </div>
-                  <div class="col-md-4">
-                      <button class="btn btn-primary btn-sm" (click)="addRow()">Ajouter</button>
-                  </div>
-              </div>
-
-              <div class="row" *ngFor="let Ggroup of sableForm.get('Granulometrie')['controls'] ;let i = index"
-                  [formGroup]="Ggroup">
-
-
-                  <div class="col-md-4">
-                      <input formControlName="module">
-                  </div>
-
-
-                  <div class="col-md-4">
-                      <input formControlName="passant">
-                  </div>
-                  <div class="col-md-4">
-                      <button class="btn btn-danger btn-sm" (click)="deleteRow(i)">Supprimer</button>
-                  </div>
-
-              </div>
-              <button (click)="validateForm()" class="btn btn-primary">
-                  valider
-              </button>
-          </form>
-      </div>
-  </div>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let sable of sables; let i=index">
+                    <td>{{i+1}}</td>
+                    <td>{{sable.data.nom}}</td>
+                    <td>{{sable.data.region}}</td>
+                    <td>{{sable.data.Cc}}</td>
+                    <td>{{sable.data.Cu}}</td>
+                    <td>{{sable.data.Dab}}</td>
+                    <td>{{sable.data.Dap}}</td>
+                    <td>{{sable.data.ES}}</td>
+                    <td>{{sable.data.Mf}}</td>
+                    <td>
+                        <button type="button" (click)="onShow(sable.id)" class="btn btn-primary">Voir</button>
+                        <button type="button" (click)="onEdit(sable.id)" class="btn btn-warning">Modifier</button>
+                        <button type="button" (click)="onDelet(sable.id)" class="btn btn-danger">Supprimer</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-  

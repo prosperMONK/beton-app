@@ -1,15 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ChartOptions } from 'chart.js';
+import { Color } from 'ng2-charts';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { GravierService } from 'src/app/services/gravier.service';
-import { ChartDataSets, ChartData, ChartOptions, ChartTitleOptions } from 'chart.js';
-import { Label, Color } from 'ng2-charts';
+import { SableService } from 'src/app/services/sable.service';
 
 @Component({
-  selector: 'app-detail',
-  templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.scss']
+  selector: 'app-sable-detail',
+  templateUrl: './sable-detail.component.html',
+  styleUrls: ['./sable-detail.component.scss']
 })
-export class DetailComponent implements OnInit {
+export class SableDetailComponent implements OnInit {
   @Input() id: string;
   item: any;
   lineChartTension = 0;
@@ -71,12 +71,12 @@ export class DetailComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
-    public gravierservice: GravierService
+    public sableservice: SableService
   ) { }
 
   ngOnInit(): void {
     console.log("id: ", this.id);
-    if (this.id) this.gravierservice.getById(this.id).subscribe(
+    if (this.id) this.sableservice.getById(this.id).subscribe(
       res => {
         this.item = res;
         console.log(this.item.Granulometrie);
@@ -92,3 +92,4 @@ export class DetailComponent implements OnInit {
   }
 
 }
+

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { SableService } from 'src/app/services/sable.service';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { SableDetailComponent } from './sable-detail/sable-detail.component';
+import { SableFormComponent } from './sable-form/sable-form.component';
 
 @Component({
   selector: 'app-sable',
@@ -8,66 +10,47 @@ import { SableService } from 'src/app/services/sable.service';
   styleUrls: ['./sable.component.scss']
 })
 export class SableComponent implements OnInit {
-sableForm:FormGroup;
 sables: any[];
-isUpdating=false;
-id: string;
-
+closeResult: string;
   constructor(
-    private fb: FormBuilder,
+    private modalService: NgbModal,
     public sableservice: SableService
   ) { }
 
   ngOnInit(): void {
-    this.InitForm();
     this.sableservice.getAll().subscribe(
       res=> this.sables=res
     )
   }
-InitForm(){
-  this.sableForm=this.fb.group({
-    nom: ["", Validators.required],
-    region: ["", Validators.required],
-    Cc: ["",Validators.required],
-    Cu: ["",Validators.required],
-    Dab: ["",Validators.required],
-    Dap: ["",Validators.required],
-    ES: ["",Validators.required],
-    Granulometrie: this.fb.array([])
-  })
-  this.sableservice.getAll().subscribe(
-    res=> this.sables=res
-  )
-}
-  addRow() {
-    const add = this.sableForm.get('Granulometrie') as FormArray;
-    add.push(this.fb.group({
-      module: [],
-      passant: []
-    }))
+
+  onShow(id){
+    const data = this.modalService.open(SableDetailComponent, {ariaLabelledBy: 'modal-basic-title', size: 'xl'});
+    data.componentInstance.id = id;
   }
 
-  deleteRow(index: number) {
-    const add = this.sableForm.get('Granulometrie') as FormArray;
-    add.removeAt(index)
-  }  
-  validateForm(){
-    console.log(this.sableForm.value)
-    if(!this.isUpdating) this.sableservice.Add(this.sableForm.value);
-    else this.sableservice.Edit(this.id,this.sableForm.value)
-     this.InitForm();
-     this.isUpdating=false;
-    
+
+  onAdd() {
+    this.modalService.open(SableFormComponent, {ariaLabelledBy: 'modal-basic-title', size: 'lg',}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
   }
-  onShow(i){}
   onEdit(id){
-    this.id=id;
-    this.isUpdating=true;
-    this.sableservice.getById(id).subscribe(
-      res=> this.sableForm.patchValue(res)
-    )
+    const data = this.modalService.open(SableFormComponent, {ariaLabelledBy: 'modal-basic-title', size: 'lg' });
+    data.componentInstance.id = id;
   }
   onDelet(id){
-    this.sableservice.Delet(id)
+    this. sableservice.Delet(id)
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
   }
 }

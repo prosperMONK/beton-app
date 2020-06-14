@@ -4,9 +4,9 @@ import { PublicComponent } from './public/public.component';
 import { PrivateComponent } from './private/private.component';
 import { LoginComponent } from './public/login/login.component';
 import { GravierComponent } from './private/gravier/gravier.component';
-import { SableComponent } from './private/sable/sable.component';
 import { CimentComponent } from './private/ciment/ciment.component';
 import { AccueilComponent } from './private/accueil/accueil.component';
+import { SableComponent } from './private/sable/sable.component';
 
 
 const routes: Routes = [

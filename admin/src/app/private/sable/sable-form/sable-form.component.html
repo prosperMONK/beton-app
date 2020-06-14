@@ -1,21 +1,23 @@
 <div class="container">
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Formulaire de Gravier</h4>
+    <div class="modal-header ">
+        <h4 class="modal-title" id="modal-basic-title">Formulaire de Sable</h4>
         <button type="button" class="close" aria-label="Close" (click)="onClose()">
-          <span aria-hidden="true">×</span>
+            <span aria-hidden="true">×</span>
         </button>
-      </div>
-      <div class="modal-body">
+    </div>
+
+    <div class="modal-body">
         <form [formGroup]="form">
             <div class="form-group  row">
+
                 <label class="col-sm-6 col-form-label" for="Nom">
-                    Nom du gravier
+                    Nom du Sable
                 </label>
                 <div class="col-sm-6">
                     <input type="text" formControlName="nom" class="form-control form-control-sm" id="nom">
                 </div>
             </div>
-        
+
             <div class="form-group  row">
                 <label class="col-sm-6 col-form-label" for="region">
                     Region
@@ -24,16 +26,7 @@
                     <input type="text" formControlName="region" class="form-control form-control-sm" id="region">
                 </div>
             </div>
-        
-            <div class="form-group  row">
-                <label class="col-sm-6 col-form-label" for="Dmax">
-                    Dmax
-                </label>
-                <div class="col-sm-6">
-                    <input type="number" formControlName="Dmax" class="form-control form-control-sm" id="Dmax">
-                </div>
-            </div>
-        
+
             <div class="form-group  row">
                 <label class="col-sm-6 col-form-label" for="Cc">
                     Cc
@@ -42,7 +35,7 @@
                     <input type="number" formControlName="Cc" class="form-control form-control-sm" id="Cc">
                 </div>
             </div>
-        
+
             <div class="form-group  row">
                 <label class="col-sm-6 col-form-label" for="Cu">
                     Cu
@@ -51,7 +44,7 @@
                     <input type="number" formControlName="Cu" class="form-control form-control-sm" id="Cu">
                 </div>
             </div>
-        
+
             <div class="form-group  row">
                 <label class="col-sm-6 col-form-label" for="Dab">
                     Dab
@@ -60,7 +53,7 @@
                     <input type="number" formControlName="Dab" class="form-control form-control-sm" id="Dab">
                 </div>
             </div>
-        
+
             <div class="form-group  row">
                 <label class="col-sm-6 col-form-label" for="Dap">
                     Dap
@@ -69,16 +62,29 @@
                     <input type="number" formControlName="Dap" class="form-control form-control-sm" id="Dap">
                 </div>
             </div>
-        
+
             <div class="form-group  row">
-                <label class="col-sm-6 col-form-label" for="G">
-                    coefficient Granulaire G
+                <label class="col-sm-6 col-form-label" for="ES">
+                    ES
                 </label>
                 <div class="col-sm-6">
-                    <input type="number" formControlName="G" class="form-control form-control-sm" id="G">
+                    <input type="number" formControlName="ES" class="form-control form-control-sm" id="ES">
                 </div>
             </div>
-            <div class="row">
+
+            <div class="form-group  row">
+                <label class="col-sm-6 col-form-label" for="Mf">
+                    Mf
+                </label>
+                <div class="col-sm-6">
+                    <input type="number" formControlName="Mf" class="form-control form-control-sm" id="Mf">
+                </div>
+
+            </div>
+
+
+
+            <div class="row ">
                 <div class="col-md-4">
                     <span>tamis</span>
                 </div>
@@ -89,15 +95,14 @@
                     <button class="btn btn-primary btn-sm" (click)="addRow()">Ajouter</button>
                 </div>
             </div>
-        
-            <div  *ngFor="let Ggroup of form.get('Granulometrie')['controls'] ;let i = index"
-                [formGroup]="Ggroup">
-        
+
+            <div *ngFor="let Ggroup of form.get('Granulometrie')['controls'] ;let i = index" [formGroup]="Ggroup">
+
                 <div class="row">
                     <div class="col-md-4">
                         <input class="form-control" formControlName="module">
                     </div>
-            
+
                     <div class="col-md-4">
                         <input class="form-control" formControlName="passant">
                     </div>
@@ -105,13 +110,16 @@
                         <button class="btn btn-danger btn-sm" (click)="deleteRow(i)">Supprimer</button>
                     </div>
                 </div>
+
             </div>
         </form>
-      </div>
-      <div class="modal-footer">
+    </div>
+
+
+    <div class="modal-footer">
         <button [disabled]="!form.valid" (click)="validateForm()" class="btn btn-primary">
             valider
         </button>
-      </div>
-   
+    </div>
+
 </div>

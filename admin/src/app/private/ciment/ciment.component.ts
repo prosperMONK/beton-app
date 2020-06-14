@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CimentService } from 'src/app/services/ciment.service';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { CimentDetailComponent } from './ciment-detail/ciment-detail.component';
+import { CimentFormComponent } from './ciment-form/ciment-form.component';
 
 @Component({
   selector: 'app-ciment',
@@ -8,45 +11,49 @@ import { CimentService } from 'src/app/services/ciment.service';
   styleUrls: ['./ciment.component.scss']
 })
 export class CimentComponent implements OnInit {
-  cimentForm: FormGroup;
   ciments: any[];
   isUpdating= false;
-  id: string;
+  closeResult: string;
   constructor(
-    public cimentservice: CimentService
+    private modalService: NgbModal,
+    public cimentservice: CimentService,
   ) { }
 
   ngOnInit(): void {
-this.InitForm();
 this.cimentservice.getAll().subscribe(
   res=> this.ciments=res
 )
   }
-  InitForm(){
-    this.cimentForm = new FormGroup({
-      nom: new FormControl("", Validators.required),
-      resistance: new FormControl("", Validators.required),
-      Mvr: new FormControl("", Validators.required)
-    })
+
+  onShow(id){
+    const data = this.modalService.open(CimentDetailComponent, {ariaLabelledBy: 'modal-basic-title', size: 'lg'});
+    data.componentInstance.id = id;
   }
 
-  validateForm() {
-    console.log(this.cimentForm.value)
-    if(!this.isUpdating) this.cimentservice.Add(this.cimentForm.value);
-    else this.cimentservice.Edit(this.id,this.cimentForm.value)
-     this.InitForm();
-     this.isUpdating=false;
+
+  onAdd() {
+    this.modalService.open(CimentFormComponent, {ariaLabelledBy: 'modal-basic-title', size: 'sm'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
   }
-  onShow(i) { }
-  onEdit(id) { 
-    this.id=id;
-    this.isUpdating=true;
-    this.cimentservice.getById(id).subscribe(
-      res=> this.cimentForm.patchValue(res)
-    )
+  onEdit(id){
+    const data = this.modalService.open(CimentFormComponent, {ariaLabelledBy: 'modal-basic-title', size: 'sm'});
+    data.componentInstance.id = id;
   }
-  onDelet(id) {
-    this.cimentservice.Delet(id)
-   }
+  onDelet(id){
+    this. cimentservice.Delet(id)
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
+  }
 }
 

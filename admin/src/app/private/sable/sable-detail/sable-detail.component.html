@@ -1,13 +1,13 @@
 <div class="container" *ngIf="item">
-    <div class="modal-header">
-        <h4 class="modal-title text-primary" id="modal-basic-title">Information sur le gravier de {{item.nom}}</h4>
+    <div class="modal-header ">
+        <h4 class="modal-title text-primary " id="modal-basic-title">Information sur le sable de {{item.nom}}</h4>
         <button type="button" class="close" aria-label="Close" (click)="onClose()">
             <span aria-hidden="true">×</span>
         </button>
     </div>
     <div class="modal-body">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <div class="card">
                     <ul class="list-group">
                         <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -19,34 +19,33 @@
                           <span class="text-primary">{{item.nom}}</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                          Dmax
-                          <span class="text-primary">{{item.Dmax}}</span>
+                          Cc
+                          <span class="text-primary">{{item.Cc}}</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Cc
-                            <span class="text-primary">{{item.Cc}}</span>
+                            Cu
+                            <span class="text-primary">{{item.Cu}}</span>
                           </li>
                           <li class="list-group-item d-flex justify-content-between align-items-center">
-                              Cu
-                              <span class="text-primary">{{item.Cu}}</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                              Dab
-                              <span class="text-primary">{{item.Dab}}</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                              Dap
-                              <span class="text-primary">{{item.Dap}}</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Coefficient Granulaire G
-                                <span class="text-primary">{{item.G}}</span>
-                              </li>
-                
+                            Dab
+                            <span class="text-primary">{{item.Dab}}</span>
+                          </li>
+                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Dap
+                            <span class="text-primary">{{item.Dap}}</span>
+                          </li>
+                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                            ES
+                            <span class="text-primary">{{item.ES}}</span>
+                          </li>
+                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Mf
+                            <span class="text-primary">{{item.Mf}}</span>
+                          </li>
                       </ul>
                 </div>
             </div>
-            <div class="col-md-10">
+            <div class="col-md-9">
                 <div class="card mb-3">
                     <div class="w-100 d-flex justify-content-center">
                         <h1>
@@ -57,7 +56,7 @@
                     <table class="table">
     
                         <tr>
-                            <th>tamis</th>
+                            <th>Tamis</th>
                             <td *ngFor="let val of lineChartData">
                                 {{val.x }}
                             </td>
