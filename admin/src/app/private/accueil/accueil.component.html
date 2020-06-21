@@ -18,7 +18,7 @@
                 <div class="input-group-prepend">
                   <label class="input-group-text" for="inputGroupSelect01">choisir le gravier</label>
                 </div>
-                <select class="custom-select" formControlName="gravierId" id="inputGroupSelect01">
+                <select class="custom-select" formControlName="gravierId" id="inputGroupSelect01" (change)="onSelectGravier($event)">
                     <option *ngFor="let gravier of graviers" [value]="gravier.id">
                         {{gravier.data.nom}}
                     </option>
@@ -29,7 +29,7 @@
                 <div class="input-group-prepend">
                   <label class="input-group-text" for="inputGroupSelect01">choisir le sable</label>
                 </div>
-                <select class="custom-select" formControlName="sableId" id="inputGroupSelect01">
+                <select class="custom-select" formControlName="sableId" id="inputGroupSelect01"  (change)="onSelectSable($event)">
                     <option *ngFor="let sable of sables" [value]="sable.id">
                         {{sable.data.nom}}
                     </option>
@@ -59,6 +59,13 @@
 
         </form>
     </div>
-    <div class="col-md-7"></div>
+    <div class="col-md-7">
+      <div class="card" style="display: block">
+        <canvas baseChart  [datasets]="datasets" [options]="lineChartOptions" [chartType]="lineChartType"
+            [legend]="lineChartLegend" [colors]="lineChartColors">
+        </canvas>
+    </div>
+
+    </div>
 
 </div>

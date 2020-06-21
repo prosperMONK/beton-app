@@ -53,9 +53,9 @@ export class SableDetailComponent implements OnInit {
         },
         type: 'linear',
         ticks: {
-          max: 45,
+          max: 10,
           min: 0,
-          stepSize: 5,
+          stepSize: 1,
 
         }
       }]

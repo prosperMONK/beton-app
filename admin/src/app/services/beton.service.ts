@@ -5,7 +5,10 @@ import { Injectable } from '@angular/core';
 })
 export class BetonService {
 
-  constructor() { }
+  constructor() {
+    console.log(this.DetMod(10))
+  }
+
 
   Interpolation(x, x0, y0, x1, y1) {
     return y0 + (y1 - y0) * ((x - x0) / (x1 - x0))
@@ -94,9 +97,17 @@ export class BetonService {
     else return 0;
   }
 
+  DetMod(Dmax) {
+    let module = [20, 21, 22,23, 24, 25, 26, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50];
+    let diametre = [0.08, 0.1, 0.125,0.16, 0.2, 0.25, 0.315, 0.5, 0.63, 0.8, 1, 1.25, 1.60, 2, 2.5, 3.15, 4, 5, 6.30, 8, 10, 12.5, 16, 20, 25, 31.5, 40, 50, 63.5, 80];
+    let i = diametre.findIndex((item) => item === Dmax);
+    return module[i];
+}
+ 
+
   abscisseA(Dmax) {
-    if (Dmax <= 20) return Dmax / 2;
-    else if (Dmax > 20) return (5 + Dmax) / 2;
+    if (Dmax <= 20) return this.DetMod(Dmax / 2);
+    else if (Dmax > 20) return (38 + this.DetMod(Dmax)) / 2;
   }
 
   ordonnéeA(Dmax) {
@@ -107,60 +118,62 @@ export class BetonService {
     let YA = this.ordonnéeA(Dmax);
     let XA = this.abscisseA(Dmax);
     let a = YA / (XA - 20);
+    console.log('a:', a);
     let b = (-20 * YA) / (XA - 20);
+    console.log('b:', b);
     return a * x + b;
+
+
   }
   EquationAB(Dmax, x) {
+    
     let YA = this.ordonnéeA(Dmax);
     let XA = this.abscisseA(Dmax);
-    let a = (100 - YA) / (Dmax - XA);
-    let b = 100 - a * Dmax;
+    let a = (100 - YA) / (this.DetMod(Dmax) - XA);
+    let b = 100 - a * this.DetMod(Dmax);
     return a * x + b;
   }
 
-  detx95(granulometrie: any[]) {
-    if (granulometrie.length > 0) {
-      let refus = granulometrie.map(item => 100 - item.passant);
-      console.log('refus:', refus);
-      for (let i = 0; i < refus.length; i++) {
-        if (refus[i] <= 95) return this.Interpolation(95, refus[i], i, refus[i + 1], i + 1);
+  refus (passant) {
+    return 100- passant;
+  }
+ 
+  detx95(gr:any[]) {
+      for (let i = 0; i < gr.length; i++) {
+        let sable = gr[i];
+        let sable1= gr[i+1]
+        if (this.refus(sable.passant)<=95) return this.Interpolation(95, this.refus(sable.passant), this.DetMod(+sable.module),  this.refus(sable1.passant), this.DetMod(+sable1.module));
       }
-    } else {
-      window.alert("Pas de Granulometrie");
-    }
   }
 
-  detx5(granulometrie: any[]) {
-    if (granulometrie.length > 0) {
-      let refus = granulometrie.map(item => 100 - item.passant);
-      console.log('refus:', refus);
-      for (let i = refus.length - 1; i > 0; i--) {
-        if (refus[i] > 5) return this.Interpolation(5, refus[i], i, refus[i - 1], i - 1);
+  detx5(gr:any[]) {
+      for (let i = gr.length-1; i > 0; i--) {
+        let gravier = gr[i];
+        let gravier1= gr[i-1]
+        if (this.refus(gravier.passant)>=5) return this.Interpolation(5, this.refus(gravier.passant), this.DetMod(+gravier.module),  this.refus(gravier1.passant), this.DetMod(+gravier1.module));
       }
-    } else {
-      window.alert("Pas de Granulometrie");
-    }
   }
 
-  EquationCD(granulometrie: any[], x) {
-    let a = 90 / (this.detx95(granulometrie) - this.detx5(granulometrie));
-    let b = 95 - this.detx95(granulometrie) * a;
+  EquationCD(granulometrie: [], x) {
+    let dext95 = this.detx95(granulometrie);
+    let a = 90 / (dext95 - this.detx5(granulometrie));
+    let b = 95 - dext95 * a;
     return a * x + b;
   }
 
-  AbscSable(Dmax, granulometrie) {
-    for (let x1 = 20; x1 <= this.abscisseA(Dmax); x1 + 0.05) {
-      if (Math.abs(this.EquationOA(Dmax, x1) - this.EquationCD(granulometrie, x1)) < Number.EPSILON) return x1
-    }
-  }
+  // AbscSable(Dmax, granulometrie) {
+  //   for (let x1 = 20; x1 <= this.abscisseA(Dmax); x1 + 0.05) {
+  //     if (Math.abs(this.EquationOA(Dmax, x1) - this.EquationCD(granulometrie, x1)) < Number.EPSILON) return x1
+  //   }
+  // }
 
-  AbscGravier(Dmax, granulometrie) {
-    for (let x1 = this.abscisseA(Dmax); x1 <=Dmax; x1 + 0.05) {
-      if (Math.abs(this.EquationAB(Dmax, x1) - this.EquationCD(granulometrie, x1)) < Number.EPSILON) return x1
-    }
-  }
+  // AbscGravier(Dmax, granulometrie) {
+  //   for (let x1 = this.abscisseA(Dmax); x1 <= Dmax; x1 + 0.05) {
+  //     if (Math.abs(this.EquationAB(Dmax, x1) - this.EquationCD(granulometrie, x1)) < Number.EPSILON) return x1
+  //   }
+  // }
 
-  Ord(Dmax,Absc){
-    return this.EquationOA(Dmax,Absc)
-  }
+  // Ord(Dmax, Absc) {
+  //   return this.EquationOA(Dmax, Absc)
+  // }
 }
